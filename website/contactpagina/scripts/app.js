@@ -1,6 +1,8 @@
 const form = document.querySelector("form");
 const email = document.getElementById("email");
 const emailError = document.querySelector("#email + span.error");
+// const localhost = 'http://localhost:3000/form'
+const localhost = 'https://localhost:7095/Contact/Submit'
 
 email.addEventListener("input", (event) => {
     // Each time the user types something, we check if the
@@ -28,7 +30,9 @@ form.addEventListener("submit", async (event) => {
         return;
     }
 
-    let response = await fetch('http://localhost:3000/form', {
+    let response = await fetch(localhost, {
+        origin: 'http://127.0.0.1:5501/',
+        mode: 'cors',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({email: email.value})
