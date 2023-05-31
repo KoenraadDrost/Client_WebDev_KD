@@ -1,0 +1,41 @@
+/*mobile version*/
+.page {
+    display: flex;
+    flex-direction: column;
+    font-family: "Lucida Console", Verdana, Tahoma, sans-serif;
+}
+
+.topnav {
+        overflow: hidden;
+        background-color: #1e2525;
+    }
+
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 12px 14px;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .topnav a:hover {
+        background-color: #b4e2cf;
+        color: black;
+    }
+
+    .topnav a.active {
+        background-color: #175f41;
+        color: white;
+    }
+
+
+/*Desktop version*/
+
+@media only screen and (min-width: 800px) {
+
+    .page {
+        flex-direction: row;
+    }
+
+}

@@ -2,7 +2,7 @@ const form = document.querySelector("form");
 const email = document.getElementById("email");
 const emailError = document.querySelector("#email + span.error");
 // const localhost = 'http://localhost:3000/form'
-const localhost = 'https://localhost:7095/Contact/Submit'
+const localhost = 'https://localhost:7095/api/Email'
 
 email.addEventListener("input", (event) => {
     // Each time the user types something, we check if the
@@ -31,6 +31,7 @@ form.addEventListener("submit", async (event) => {
     }
 
     let response = await fetch(localhost, {
+        // Access-Control-Allow-Origin: *,
         origin: 'http://127.0.0.1:5501/',
         mode: 'cors',
         method: 'POST',
