@@ -1,4 +1,7 @@
-const localhostAPI = 'https://localhost:7095/api/Email'
+import '../../restricted/apikey.js';
+import { reCAPTCHA_siteKey } from '../../restricted/apikey.js';
+
+const localhostAPI = 'https://localhost:7095/api/Email';
 const localhostOrigin = 'http://127.0.0.1:5500/';
 
 const form = document.querySelector("form");
@@ -69,4 +72,13 @@ function showError() {
 
     // Set the styling appropriately
     emailError.className = "error active";
+}
+
+// reCAPTCHA v3:
+// Retrieve ApiKey from git-excluded file:
+document.getElementById("submit-btn").setAttribute("data-sitekey", reCAPTCHA_siteKey);
+
+// Submit to google Api server for verification.
+function onSubmit(token) {
+    document.getElementById("email-form").submit();
 }
