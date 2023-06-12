@@ -31,11 +31,20 @@ form.addEventListener("submit", async (event) => {
         return;
     }
 
+    const name = document.getElementById("name");
+    const subject = document.getElementById("subject");
+    const message = document.getElementById("message");
+
     let response = await fetch(localhostAPI, {
         mode: 'cors',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({email: email.value})
+        body: JSON.stringify({
+            Name: name.value,
+            Email: email.value,
+            Subject: subject.value,
+            Message: message.value
+            })
     });
 
     let data = await response.json();
