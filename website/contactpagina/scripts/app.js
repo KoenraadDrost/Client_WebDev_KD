@@ -23,20 +23,52 @@ email.addEventListener("input", (event) => {
     }
 });
 
+const name = document.getElementById("name");
+const nameError = document.querySelector("#name + span.error");
+
+name.addEventListener("input", (event) =>{
+    if(name.validity.valid){
+        nameError.textContent = "";
+        nameError.className = "error";
+    } else {
+        showError();
+    }
+});
+
+const subject = document.getElementById("subject");
+const subjectError = document.querySelector("#subject + span.error");
+
+subject.addEventListener("input", (event) =>{
+    if(subject.validity.valid){
+        subjectError.textContent = "";
+        subjectError.className = "error";
+    } else {
+        showError();
+    }
+});
+
+const message = document.getElementById("message");
+const messageError = document.querySelector("#message + span.error");
+
+message.addEventListener("input", (event) =>{
+    if(message.validity.valid){
+        messageError.textContent = "";
+        messageError.className = "error";
+    } else {
+        showError();
+    }
+});
+
 form.addEventListener("submit", async (event) => {
     // Then we prevent the form from being sent by canceling the event
     event.preventDefault();
 
-    // if the email field is valid, we let the form submit
-    if (!email.validity.valid) {
-        // If it isn't, we display an appropriate error message
+    // If all fields are valid, we let the form submission move to reCaptcha
+    if (!email.validity.valid || !name.validity.valid || !subject.validity.valid || !message.validity.valid) {
+        // If they aren't, we display an appropriate error message
         showError();
         return;
     }
-
-    const name = document.getElementById("name");
-    const subject = document.getElementById("subject");
-    const message = document.getElementById("message");
 
     let response = await fetch(localhostAPI, {
         mode: 'cors',
@@ -55,7 +87,18 @@ form.addEventListener("submit", async (event) => {
 
 });
 
+// Showing user input errrors
 function showError() {
+    if(!email.validity.valid) showEmailError();
+
+    if(!name.validity.valid) showNameError();
+
+    if(!subject.validity.valid) showSubjectError();
+
+    if(!message.validity.valid) showMessageError();
+}
+
+function showEmailError() {
     if (email.validity.valueMissing) {
         // If the field is empty,
         // display the following error message.
@@ -74,6 +117,55 @@ function showError() {
     emailError.className = "error active";
 }
 
+function showNameError() {
+    if (name.validity.valueMissing) {
+        // If the field is empty,
+        // display the following error message.
+        nameError.textContent = "Please enter your name or innitials";
+    } else if (name.validity.tooShort) {
+        // If the data is too short,
+        // display the following error message.
+        nameError.textContent = `Name should be at least ${name.minLength} characters.`;
+    }
+
+    // Set the styling appropriately to show error message to user.
+    nameError.className = "error active";
+}
+
+function showSubjectError() {
+    if (subject.validity.valueMissing) {
+        // If the field is empty,
+        // display the following error message.
+        subjectError.textContent = "Please enter a subject";
+    } else if (subject.validity.tooShort) {
+        // If the data is too short,
+        // display the following error message.
+        subjectError.textContent = `Subject should be at least ${subject.minLength} characters.`;
+    }
+
+    // Set the styling appropriately to show error message to user.
+    subjectError.className = "error active";
+}
+
+function showMessageError() {
+    if (message.validity.valueMissing) {
+        // If the field is empty,
+        // display the following error message.
+        messageError.textContent = "Please enter a message";
+    } else if (message.validity.tooShort) {
+        // If the data is too short,
+        // display the following error message.
+        messageError.textContent = `Message should be at least ${message.minLength} characters.`;
+    } else if (message.validity.tooLong) {
+        // If the data is too long
+        // display the following error message.
+        messageError.textContent = `Please keep your message brief and to a maximum of ${message.maxLength} characters.`
+    }
+
+    // Set the styling appropriately to show error message to user.
+    messageError.className = "error active";
+}
+
 // reCAPTCHA v3:
 // Retrieve ApiKey from git-excluded file:
 document.getElementById("submit-btn").setAttribute("data-sitekey", reCAPTCHA_siteKey);
@@ -82,3 +174,4 @@ document.getElementById("submit-btn").setAttribute("data-sitekey", reCAPTCHA_sit
 function onSubmit(token) {
     document.getElementById("email-form").submit();
 }
+window.onSubmit = onSubmit;
