@@ -158,15 +158,22 @@ form.addEventListener("submit", async (event) => {
                 
                 let recaptchaResponse = document.getElementById("recaptchaResponse");
                 recaptchaResponse.value = token; // Set the recaptcha response
+
+                asyncSend();
             })
     });
+
+});
+
+async function asyncSend() {
+    const recaptchaResponse = document.getElementById("recaptchaResponse");
 
     let response = await fetch(localhostAPI, {
         mode: 'cors',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            Verification: document.getElementById("recaptchaResponse").value,
+            Verification: recaptchaResponse.value,
             Name: name.value,
             Email: email.value,
             Subject: subject.value,
@@ -175,19 +182,5 @@ form.addEventListener("submit", async (event) => {
     });
 
     let data = await response.json();
-    alert(JSON.stringify(data))
-
-});
-
-// reCAPTCHA v3:
-// https://developers.google.com/recaptcha/docs/v3
-// https://www.youtube.com/watch?v=0L4Ge036Dbo => https://github.com/thedevdrawer/recaptcha-v3/tree/main
-
-// Retrieve ApiKey from git-excluded file:
-// document.getElementById("submit-btn").setAttribute("data-sitekey", reCAPTCHA_siteKey);
-
-// // Submit to google Api server for verification.
-// function onSubmit(token) {
-//     document.getElementById("email-form").submit();
-// }
-// window.onSubmit = onSubmit;
+    alert(JSON.stringify(data));
+}
