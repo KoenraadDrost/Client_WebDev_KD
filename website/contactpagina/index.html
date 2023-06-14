@@ -8,7 +8,14 @@
       <meta charset="UTF-8">
       <title>Contactpagina</title>
   <link rel="stylesheet" href="stylesheets/style.css">
-  <script defer src="https://www.google.com/recaptcha/api.js"></script>
+  <script type="module">
+    import { reCAPTCHA_siteKey } from '../restricted/apikey.js';
+    var scriptElement = document.createElement("script");
+    scriptElement.defer = true;
+    scriptElement.src = "https://www.google.com/recaptcha/api.js?render=" + reCAPTCHA_siteKey;
+    document.head.appendChild(scriptElement);
+  </script>
+  <!-- <script defer src="https://www.google.com/recaptcha/api.js"></script> -->
   <script defer src="scripts/app.js" type="module"></script>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 </head>
@@ -21,8 +28,9 @@
   <section class="contact">
 
     <h1>Contact</h1>
-    <!-- Using "get" instead of "post" to prevent 'failed to load resource' 405 error -->
+    <!-- Using "get" instead of "post" to prevent 'failed to load resource' 405 error, switch back to post if fix is found -->
     <form id="email-form" action="" method="get" class="form-contactpagina">
+      <input type="hidden" name="recaptchaResponse" id="recaptchaResponse">
 
       <div class="form-contactpagina__inputelement fx-col">
         <label for="name">Naam: </label>

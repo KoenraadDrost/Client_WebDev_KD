@@ -1,4 +1,3 @@
-import '../../restricted/apikey.js';
 import { reCAPTCHA_siteKey } from '../../restricted/apikey.js';
 
 const localhostAPI = 'https://localhost:7095/api/Email';
@@ -59,35 +58,7 @@ message.addEventListener("input", (event) =>{
     }
 });
 
-form.addEventListener("submit", async (event) => {
-    // Then we prevent the form from being sent by canceling the event
-    event.preventDefault();
-
-    // If all fields are valid, we let the form submission move to reCaptcha
-    if (!email.validity.valid || !name.validity.valid || !subject.validity.valid || !message.validity.valid) {
-        // If they aren't, we display an appropriate error message
-        showError();
-        return;
-    }
-
-    let response = await fetch(localhostAPI, {
-        mode: 'cors',
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            Name: name.value,
-            Email: email.value,
-            Subject: subject.value,
-            Message: message.value
-            })
-    });
-
-    let data = await response.json();
-    alert(JSON.stringify(data))
-
-});
-
-// Showing user input errrors
+// Showing user input errors
 function showError() {
     if(!email.validity.valid) showEmailError();
 
@@ -166,12 +137,58 @@ function showMessageError() {
     messageError.className = "error active";
 }
 
-// reCAPTCHA v3:
-// Retrieve ApiKey from git-excluded file:
-document.getElementById("submit-btn").setAttribute("data-sitekey", reCAPTCHA_siteKey);
+form.addEventListener("submit", async (event) => {
+    // Then we prevent the form from being sent by canceling the event
+    event.preventDefault();
 
-// Submit to google Api server for verification.
-function onSubmit(token) {
-    document.getElementById("email-form").submit();
-}
-window.onSubmit = onSubmit;
+    // If all fields are valid, we let the form submission move to reCaptcha
+    if (!email.validity.valid || !name.validity.valid || !subject.validity.valid || !message.validity.valid) {
+        // If they aren't, we display an appropriate error message
+        showError();
+        return;
+    }
+
+    //Current work in pgrogress, Recaptcha:
+    grecaptcha.ready(function() { // Wait for the recaptcha to be ready
+        grecaptcha
+            .execute(reCAPTCHA_siteKey, {
+                action: "contact"
+            }) // Execute the recaptcha
+            .then(function(token){
+                
+                let recaptchaResponse = document.getElementById("recaptchaResponse");
+                recaptchaResponse.value = token; // Set the recaptcha response
+            })
+    });
+
+    let response = await fetch(localhostAPI, {
+        mode: 'cors',
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: new FormData(form)
+        // body: JSON.stringify({
+        //     Verification: document.getElementById("recaptchaResponse").value,
+        //     Name: name.value,
+        //     Email: email.value,
+        //     Subject: subject.value,
+        //     Message: message.value
+        //     })
+    });
+
+    let data = await response.json();
+    alert(JSON.stringify(data))
+
+});
+
+// reCAPTCHA v3:
+// https://developers.google.com/recaptcha/docs/v3
+// https://www.youtube.com/watch?v=0L4Ge036Dbo => https://github.com/thedevdrawer/recaptcha-v3/tree/main
+
+// Retrieve ApiKey from git-excluded file:
+// document.getElementById("submit-btn").setAttribute("data-sitekey", reCAPTCHA_siteKey);
+
+// // Submit to google Api server for verification.
+// function onSubmit(token) {
+//     document.getElementById("email-form").submit();
+// }
+// window.onSubmit = onSubmit;
