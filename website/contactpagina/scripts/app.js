@@ -165,14 +165,13 @@ form.addEventListener("submit", async (event) => {
         mode: 'cors',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: new FormData(form)
-        // body: JSON.stringify({
-        //     Verification: document.getElementById("recaptchaResponse").value,
-        //     Name: name.value,
-        //     Email: email.value,
-        //     Subject: subject.value,
-        //     Message: message.value
-        //     })
+        body: JSON.stringify({
+            Verification: document.getElementById("recaptchaResponse").value,
+            Name: name.value,
+            Email: email.value,
+            Subject: subject.value,
+            Message: message.value
+            })
     });
 
     let data = await response.json();
