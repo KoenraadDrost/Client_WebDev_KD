@@ -8,7 +8,15 @@
       <meta charset="UTF-8">
       <title>Contactpagina</title>
   <link rel="stylesheet" href="stylesheets/style.css">
-  <script defer src="scripts/app.js"></script>
+  <script type="module">
+    import { reCAPTCHA_siteKey } from '../restricted/apikey.js';
+    var scriptElement = document.createElement("script");
+    scriptElement.defer = true;
+    scriptElement.src = "https://www.google.com/recaptcha/api.js?render=" + reCAPTCHA_siteKey;
+    document.head.appendChild(scriptElement);
+  </script>
+  <!-- <script defer src="https://www.google.com/recaptcha/api.js"></script> -->
+  <script defer src="scripts/app.js" type="module"></script>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 </head>
 
@@ -20,58 +28,49 @@
   <section class="contact">
 
     <h1>Contact</h1>
-
-    <form action="" method="post" class="form-contactpagina">
+    <!-- Using "get" instead of "post" to prevent 'failed to load resource' 405 error, switch back to post if fix is found -->
+    <form id="email-form" action="" method="get" class="form-contactpagina">
+      <input type="hidden" name="recaptchaResponse" id="recaptchaResponse">
 
       <div class="form-contactpagina__inputelement fx-col">
         <label for="name">Naam: </label>
-        <input type="text" name="name" id="name" required minlength="2"
+        <input type="text" name="name" id="name" required minlength="2" maxlength="255"
         placeholder="Sam">
+        <span class="error" aria-live="polite"></span>
       </div>
 
       <div class="form-contactpagina__inputelement fx-col">
         <label for="email">Emailadres:</label>
-        <input type="email" name="email" id="email" required minlength="8"
+        <input type="email" name="email" id="email" required minlength="8" maxlength="255"
         placeholder="naam@emailadress.nl">
         <span class="error" aria-live="polite"></span>
       </div>
 
       <div class="form-contactpagina__inputelement fx-col">
         <label for="subject">Onderwerp:</label>
-        <input type="text" name="subject" id="subject" required maxlength="200"
+        <input type="text" name="subject" id="subject" required minlength="2" maxlength="200"
         placeholder="Onderwerp">
+        <span class="error" aria-live="polite"></span>
       </div>
 
       <div class="form-contactpagina__inputelement fx-col">
-        <label for="subject">Bericht:</label>
-        <textarea type="text" name="message" id="message" required maxlength="600"
+        <label for="message">Bericht:</label>
+        <textarea type="text" name="message" id="message" required minlength="5" maxlength="600"
         rows="6" cols="50"
         placeholder="Bericht aan maker van website."></textarea>
+        <span class="error" aria-live="polite"></span>
       </div>
-
-      <!-- <div class="form-contactpagina__inputelement fx-col">
-        <label for="phone">Telefoonnummer: </label>
-        <input type="tel" name="phone" id="phone"
-        pattern="[0-9]{2,3}-[0-9]{7,8}"
-        placeholder="(0)74-123457(8)">
-      </div>
-
-      <div class="form-contactpagina__inputelement fx-col">
-        <label for="call-date">Op welke dag kunnen we bellen? </label>
-        <input name="call-date" type="date" id="call-date">
-      </div>
-
-      <div class="form-contactpagina__inputelement">
-      <fieldset>
-        <legend>Wil je onze nieuwsbrief ontvangen?</legend>
-        <label><input type="radio" name="newsletter" value="yes" checked/> Ja, graag!</label>
-        <label><input type="radio" name="newsletter" value="no" /> Nee, een andere keer</label>
-      </fieldset>
-      </div>    -->
       
       <div class="form-contactpagina__inputelement">
         <input class="form-contactpagina__button" type="reset" value="Reset">
-        <input class="form-contactpagina__button" type="submit" value="Verstuur!">
+
+        <input type="submit"
+          id="submit-btn"
+          class="g-recaptcha form-contactpagina__button"
+          data-sitekey="reCAPTCHA_siteKey"
+          data-callback='onSubmit' 
+          data-action='submit'
+          value="Verstuur!">
       </div>
     
     </form>
