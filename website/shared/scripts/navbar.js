@@ -12,9 +12,21 @@ class CustomNav extends HTMLElement {
         const div = document.createElement('div');
         div.setAttribute('class', 'topnav');
         div.innerHTML +=
-            `<a href="../homepage/index.html">Home</a>
-            <a href="../profielpage/index.html">Profiel</a>
-            <a href="../contactpage/index.html">Contact</a>`;
+            `
+            <div class="topnav-left">
+                <a href="../homepage/index.html">Home</a>
+                <a href="../profielpage/index.html">Profiel</a>
+                <a href="../contactpage/index.html">Contact</a>
+            </div>
+            <div class="topnav-right">
+                <div class="dropdown">
+                    <button class="dropbtn">Account</button>
+                    <div class="dropdown-content">
+                        <a href="../accountpage/index.html">Settings</a>
+                        <a href="../accountpage/index.html">Longer Test</a>
+                    </div>
+                </div>
+            </div>`;
 
         this.shadowRoot.appendChild(div);
         this.attachStyling();
