@@ -13,8 +13,8 @@ class CustomNav extends HTMLElement {
         div.setAttribute('class', 'topnav');
         div.innerHTML +=
             `<a href="../homepage/index.html">Home</a>
-            <a href="../profielpagina/index.html">Profiel</a>
-            <a href="../contactpagina/index.html">Contact</a>`;
+            <a href="../profielpage/index.html">Profiel</a>
+            <a href="../contactpage/index.html">Contact</a>`;
 
         this.shadowRoot.appendChild(div);
         this.attachStyling();
