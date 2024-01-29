@@ -1,6 +1,6 @@
 import { reCAPTCHA_siteKey } from '../../restricted/apikey.js';
 
-const localhostAPI = 'https://localhost:7095/api/Email';
+const localhostAPI = 'https://localhost:7095/api/Email/Send';
 const localhostOrigin = 'http://127.0.0.1:5500/';
 
 const form = document.querySelector("form");

@@ -1,0 +1,110 @@
+/*mobile version*/
+
+.page {
+    display: flex;
+    flex-direction: column;
+    /* font-family: Arial; */
+    font-family: "Lucida Console", Verdana, Tahoma, sans-serif;
+}
+
+.account {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+    padding: 5px;
+    background-color: #c5ecdc;
+    border: 5px solid #175f41;
+    border-radius: 5px;
+}
+
+.form-accountpagina__inputelement {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    margin: 15px 0px 15px 0px
+}
+
+.form-accountpagina__inputelement label {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.form-accountpagina__inputelement input {    
+    border: 3px solid #333;
+    border-width: 2px;
+    border-radius: 3px;
+    padding: 5px;
+    width: 100%;
+}
+
+.fx-col{
+    flex-direction: column;
+}
+
+@media only screen and (min-width: 800px) {
+
+}
+
+/* styling for ajax-send */
+
+.page {
+    font: 1em sans-serif;
+    width: 400px;
+    padding: 0;
+    margin: 0 auto;
+}
+
+p * {
+    display: block;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+/* This is our style for the invalid fields */
+input:invalid:not(:placeholder-shown) {
+    border-color: #900;
+    background-color: #fdd;
+}
+
+input:focus:invalid {
+    outline: none;
+}
+
+/* This is the style of our error messages */
+.error {
+    width: 100%;
+    padding: 0;
+
+    font-size: 80%;
+    color: white;
+    background-color: rgb(172, 79, 79);
+    border-radius: 0 0 5px 5px;
+
+    box-sizing: border-box;
+}
+
+.error.active {
+display: block;
+    margin-bottom: 4px;
+    padding: 0.3em;
+}
+
+/* Additional styling K */
+.form-accountpagina__button {
+    appearance: none;
+    min-width: 100px;
+    display: inline-block;
+    background-color: rgb(127, 206, 216);
+    border: 3px solid #333 !important;
+    border-radius: 5px;
+    margin: 5px 5px 5px 5px;
+    padding: 10px !important;
+    font-size: 16px;
+    font-weight: bold;
+}

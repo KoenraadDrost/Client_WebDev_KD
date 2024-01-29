@@ -29,7 +29,7 @@
 
     <h1>Contact</h1>
     <!-- Using "get" instead of "post" to prevent 'failed to load resource' 405 error, switch back to post if fix is found -->
-    <form id="email-form" action="" method="get" class="form-contactpagina">
+    <form id="email-form">
       <input type="hidden" name="recaptchaResponse" id="recaptchaResponse">
 
       <div class="form-contactpagina__inputelement fx-col">
@@ -42,7 +42,7 @@
       <div class="form-contactpagina__inputelement fx-col">
         <label for="email">Emailadres:</label>
         <input type="email" name="email" id="email" required minlength="8" maxlength="255"
-        placeholder="naam@emailadress.nl">
+        placeholder="naam@emailadres.nl">
         <span class="error" aria-live="polite"></span>
       </div>
 
