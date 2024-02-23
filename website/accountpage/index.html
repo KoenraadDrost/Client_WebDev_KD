@@ -29,19 +29,18 @@
 
   <div class="page">
     <section class="account">
-      <!-- Using "get" instead of "post" to prevent 'failed to load resource' 405 error, switch back to post if fix is found -->
-      <form id="email-form" action="" method="post" class="form-contactpagina">
+      <form id="login-form" class="form-accountpagina">
         <input type="hidden" name="recaptchaResponse" id="recaptchaResponse">
         
         <div class="form-accountpagina__inputelement fx-col">
           <label for="username">Gebruikersnaam of Emailadres: </label>
-          <input type="text" name="usernamefield" id="usernamefield" placeholder="naam@email.nl/Gebruiker123" autocomplete="username" required minlength="2">
+          <input type="text" name="username" id="username" placeholder="naam@email.nl/Gebruiker123" autocomplete="username" required minlength="2">
           <span class="error" aria-live="polite"></span>
         </div>
 
         <div class="form-accountpagina__inputelement fx-col">
           <label for="password">Wachtwoord: </label>
-          <input type="password" name="passwordfield" id="passwordfield" placeholder="password" autocomplete="current-password" required minlength="2">
+          <input type="password" name="password" id="password" placeholder="password123" autocomplete="current-password" required minlength="2">
           <span class="error" aria-live="polite"></span>
         </div>
 

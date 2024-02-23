@@ -24,12 +24,14 @@ class CustomNav extends HTMLElement {
                     <div class="dropdown-content">
                         <a href="../accountpage/index.html">Settings</a>
                         <a href="../accountpage/index.html">Longer Test</a>
+                        <button id="logoutButton" class="logoutbtn">Logout</button>
                     </div>
                 </div>
             </div>`;
 
         this.shadowRoot.appendChild(div);
         this.attachStyling();
+        this.attachScript();
     }
 
     // class CustomTitle
@@ -39,7 +41,13 @@ class CustomNav extends HTMLElement {
         linkElem.setAttribute("href", "../shared/stylesheets/navstyle.css");
         this.shadowRoot.appendChild(linkElem);
     }
-
+    
+    attachScript(){
+        const scriptElem = document.createElement("script");
+        scriptElem.setAttribute("type", "module");
+        scriptElem.setAttribute("src", "../shared/scripts/logout.js");
+        this.shadowRoot.appendChild(scriptElem);
+    }
 }
 
 customElements.define('custom-nav', CustomNav);

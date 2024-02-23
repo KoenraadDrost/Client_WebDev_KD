@@ -4,8 +4,8 @@ const localhostAPI = 'https://localhost:7095/api/Login';
 const localhostOrigin = 'http://127.0.0.1:5500/';
 
 const form = document.querySelector("form");
-const username = document.getElementById("usernamefield");
-const usernameError = document.querySelector("#usernamefield + span.error");
+const username = document.getElementById("username");
+const usernameError = document.querySelector("#username + span.error");
 
 username.addEventListener("input", (event) => {
     // Each time the user types something, we check if the
@@ -22,8 +22,8 @@ username.addEventListener("input", (event) => {
     }
 });
 
-const password = document.getElementById("passwordfield");
-const passwordError = document.querySelector("#passwordfield + span.error");
+const password = document.getElementById("password");
+const passwordError = document.querySelector("#password + span.error");
 
 password.addEventListener("input", (event) =>{
     if(password.validity.valid){
@@ -50,7 +50,7 @@ function showUsernameError() {
         // If the field doesn't contain an email address,
         // display the following error message.
         usernameError.textContent = "Entered value needs to be an e-mail address or username.";
-    } else if (email.validity.tooShort) {
+    } else if (username.validity.tooShort) {
         // If the data is too short,
         // display the following error message.
         usernameError.textContent = `E-mail or username should be at least ${username.minLength} characters; you entered ${email.value.length}.`;
@@ -118,5 +118,14 @@ async function asyncSend() {
     });
 
     let data = await response.json();
+    let obj = JSON.parse(data);
+// Figure out how exchange session cookie works. Might not need to save cookie client-side at all. Need way to check for allowed acces of active user.
+    // saveCookie(data);
+
+
     alert(JSON.stringify(data));
+}
+
+function saveCookie(cookieData) {
+    document.cookie = cookieData;
 }
